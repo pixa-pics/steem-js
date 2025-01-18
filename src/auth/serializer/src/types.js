@@ -132,15 +132,15 @@ Types.asset = {
           {
             case "@@000000021":
               precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXC" : "TPXC"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXCT" : "PXCT"
               break
             case "@@000000013":
               precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXS" : "TPXS"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXST" : "PXST"
               break
             case "@@000000037":
               precision = 6
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXP" : "TPXP"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXPT" : "PXPT"
               break
           }
 
@@ -219,11 +219,11 @@ Types.asset_symbol = {
             // Legacy Case
             let b_copy = b.copy(b.offset, b.offset + 7)
             let symbol = new Buffer(b_copy.toBinary(), "binary").toString().replace(/\x00/g, "")
-            if(symbol == "PXC" || symbol == "TPXC")
+            if(symbol == "PXC" || symbol == "PXCT")
               nai_string = "@@000000021"
-            else if(symbol == "PXS" || symbol == "TPXS")
+            else if(symbol == "PXS" || symbol == "PXST")
               nai_string = "@@000000013"
-            else if(symbol == "PXP" || symbol == "TPXP")
+            else if(symbol == "PXP" || symbol == "PXPT")
               nai_string = "@@000000037"
             else
               throw new Error("Expecting non-smt core asset symbol, instead got '" + symbol + "'")
@@ -249,15 +249,15 @@ Types.asset_symbol = {
         {
           case "@@000000021":
             precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXC" : "TPXC"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXCT" : "PXCT"
             break
           case "@@000000013":
             precision = 3
-            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXS" : "TPXS"
+            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXST" : "PXST"
             break
           case "@@000000037":
             precision = 6
-            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXP" : "TPXP"
+            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXPT" : "PXPT"
             break
         }
 
