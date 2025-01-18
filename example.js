@@ -20,17 +20,22 @@ steem.api.setOptions({
 // Replace with actual initminer key
 const INITMINER_WIF = '5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n';
 
+async function getAccountCreationFee() {
+  return new Promise((resolve, reject) => {
+    steem.api.getWitnessSchedule((err, schedule) => {
+      if (err) {
+        return reject(err);
+      }
+      // Usually '0.000 TESTS' or something similar
+      const creationFee = schedule.median_props.account_creation_fee;
+      console.log('Network-reported account creation fee:', creationFee);
+      resolve(creationFee);
+    });
+  });
+}
+
 async function createAccountAndTransfer() {
   try {
-
-    steem.api.getWitnessSchedule((err, schedule) => {
-        if (err) {
-          console.error('Error fetching witness schedule:', err);
-        } else {
-          console.log('Witness Schedule:', schedule);
-          console.log('Account Creation Fee (median_props):', schedule.median_props.account_creation_fee);
-        }
-      });
 
     // Generate a random 3-digit number (100–999)
     const randomDigits = Math.floor(Math.random() * 900) + 100;
@@ -49,7 +54,7 @@ async function createAccountAndTransfer() {
     };
 
     // Adjust based on your chain's asset symbol
-    const creationFee = '0.000 PXCT';  // Must match chain settings
+    const creationFee = await getAccountCreationFee();
     const creatorName = 'initminer';
 
     // 1) Create the account using accountCreate
